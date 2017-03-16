@@ -1,6 +1,9 @@
 # sbvalidate
 1.springboot AOP,validate<br>
-2.logger日志使用
+2.logger日志使用 <br>
+3.自定义全局exception的处理 <br>
+4.enum枚举的使用 <br>
+5.springboot热部署
 
 
 #  IDEA提交github错误解决

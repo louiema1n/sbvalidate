@@ -31,4 +31,8 @@ public class UserService {
             throw new UserException(ResultEnum.MIDDLE_SCHOOL);
         }
     }
+
+    public User findUserById(Integer id) {
+        return this.userRepository.findOne(id);
+    }
 }
