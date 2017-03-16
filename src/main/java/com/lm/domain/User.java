@@ -45,4 +45,13 @@ public class User {
     public void setCupSize(String cupSize) {
         this.cupSize = cupSize;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", age=" + age +
+                ", cupSize='" + cupSize + '\'' +
+                '}';
+    }
 }

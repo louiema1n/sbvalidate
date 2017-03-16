@@ -1,5 +1,6 @@
 # sbvalidate
-1.springboot AOP,validate
+1.springboot AOP,validate<br>
+2.logger日志使用
 
 
 #  IDEA提交github错误解决

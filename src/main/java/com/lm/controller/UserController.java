@@ -1,13 +1,15 @@
 package com.lm.controller;
 
+import com.lm.domain.Result;
 import com.lm.domain.User;
 import com.lm.repository.UserRepository;
+import com.lm.service.UserService;
+import com.lm.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,8 +21,14 @@ import java.util.List;
 @RequestMapping(path = "/user")
 public class UserController {
 
+    // 日志
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 新增用户,验证age>18的限制
@@ -28,13 +36,13 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "")
-    public User add(@Valid User user, BindingResult bindingResult) {
+    public Result<User> add(@Valid User user, BindingResult bindingResult) {
         // 验证不通过，输出错误message信息
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError().getDefaultMessage());
             return null;
+//            return ResultUtil.error(0, bindingResult.getFieldError().getDefaultMessage());
         }
-        return userRepository.save(user);
+        return ResultUtil.success(userRepository.save(user));
     }
 
     /**
@@ -43,7 +51,12 @@ public class UserController {
      */
     @GetMapping(value = "")
     public List<User> listAll() {
-        System.out.println("listAll执行了");
+        LOGGER.info("listAll执行了");
         return userRepository.findAll();
+    }
+
+    @GetMapping(value = "/getAge/{id}")
+    public void getAge(@PathVariable Integer id) throws Exception{
+        this.userService.getAge(id);
     }
 }
